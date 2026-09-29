@@ -1,0 +1,199 @@
+/* ---------------------------------------------------------
+   VEJLEDENDE LØSNING - js-road-show-events-and-data-starter
+--------------------------------------------------------- */
+
+/* ---------------------------------------------------------
+   Import af font
+--------------------------------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+/* ---------------------------------------------------------
+   Root-variabler
+--------------------------------------------------------- */
+:root {
+   --font-body: 'Poppins', sans-serif;
+
+   /* Farver */
+   --color-sky-top: #a6d8ff;
+   --color-sky-mid: #ffffff;
+   --color-sky-bot: #ffffff;
+   --color-night: #222833;
+   --color-sun: #ffffff;
+
+   /* LØSNING: billedstørrelser (px) */
+   --sun-size: 100px; /* solens bredde og højde */
+   --car-w: 200px;    /* bilernes bredde */
+}
+
+/* ---------------------------------------------------------
+   Global reset
+--------------------------------------------------------- */
+* {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+   font-family: var(--font-body);
+}
+
+/* ---------------------------------------------------------
+   Scene
+--------------------------------------------------------- */
+/* LØSNING: .scene (himlen) */
+.scene {
+   position: relative; /* solen og vejen placeres i forhold til scenen */
+   height: 100vh;      /* scenen fylder hele skærmens højde */
+   overflow: hidden;   /* skjuler bilerne, når de er uden for skærmen */
+   background: linear-gradient(
+      var(--color-sky-top),
+      var(--color-sky-mid),
+      var(--color-sky-bot)
+   );
+}
+
+/* LØSNING: nat-tilstand (klassen "night" tilføjes af JavaScript) */
+.scene.night {
+   background: var(--color-night);
+}
+
+/* ---------------------------------------------------------
+   Sol og måne
+--------------------------------------------------------- */
+.sun {
+   position: absolute;
+   width: var(--sun-size);
+   height: var(--sun-size);
+   background: var(--color-sun);
+   border-radius: 50%;
+   top: 10vh;
+   left: 55%;
+   transform: translateX(-50%);
+   box-shadow: 0 0 5vw var(--color-sun);
+   transition: 0.2s;
+   cursor: pointer;
+}
+
+/* Nat: dæmp gløden */
+.scene.night .sun {
+   left: 45%;
+   box-shadow: 0 0 0 var(--color-sun);
+}
+
+/* :before indsætter et ekstra element i nattefarven oven på solen,
+   så kun en "skive" af solen er synlig - den bliver til en måne. */
+.scene.night .sun:before {
+   content: "";
+   position: absolute;
+   top: -20px;
+   left: 20px;
+   width: 100%;
+   height: 100%;
+   background: var(--color-night);
+   border-radius: 50%;
+}
+
+/* ---------------------------------------------------------
+   Baggrund (vejen, der kører)
+--------------------------------------------------------- */
+.bg {
+   position: absolute;
+   inset: auto 0 0 0; /* top: auto, right: 0, bottom: 0, left: 0 */
+   width: 100%;
+   height: 280px;
+   background: url(../img/bg.png);
+   background-size: 100vw auto;
+   background-repeat: repeat-x; /* gentager billedet vandret */
+   animation: animateBg 17s linear infinite;
+}
+
+/* Flyt baggrunden én skærmbredde til venstre - og start forfra */
+@keyframes animateBg {
+   0%   { background-position-x: 0; }
+   100% { background-position-x: -100vw; }
+}
+
+/* ---------------------------------------------------------
+   Biler - fælles
+--------------------------------------------------------- */
+.car1,
+.car2,
+.car3 {
+   position: absolute;
+   width: var(--car-w);
+   max-width: 28vw;
+   z-index: 1;
+   cursor: pointer; /* viser en hånd, så man kan se, at bilerne kan klikkes */
+}
+
+/* ---------------------------------------------------------
+   car1 (rød bil): venstre → højre
+--------------------------------------------------------- */
+.car1 {
+   bottom: 2.8vh;
+   left: -30vw; /* starter 30vw uden for skærmen til venstre */
+   animation: car1 18s linear infinite;
+}
+
+@keyframes car1 {
+   0%   { transform: translateX(0); }
+   100% { transform: translateX(130vw); }
+}
+
+/* ---------------------------------------------------------
+   car2 (politibil): højre → venstre
+--------------------------------------------------------- */
+.car2 {
+   bottom: 2.8vh;
+   right: -30vw; /* starter 30vw uden for skærmen til højre */
+   animation: car2 12s linear infinite;
+}
+
+/* LØSNING: @keyframes car2 */
+@keyframes car2 {
+   0%   { transform: translateX(0) rotateY(180deg); }
+   100% { transform: translateX(-130vw) rotateY(180deg); }
+}
+
+/* Ekstra: med "90%, 100%" når bilen slutpositionen allerede ved 90 %
+   og holder en pause uden for skærmen de sidste 10 %, før den starter forfra. */
+
+/* ---------------------------------------------------------
+   car3 (blå bil): venstre → højre (spejlvendt)
+--------------------------------------------------------- */
+.car3 {
+   bottom: -3.4vh;
+   left: -30vw; /* starter 30vw uden for skærmen til venstre */
+   animation: car3 8s linear infinite;
+}
+
+/* LØSNING: @keyframes car3 */
+@keyframes car3 {
+   0%   { transform: translateX(0) rotateY(180deg); }
+   100% { transform: translateX(130vw) rotateY(180deg); }
+}
+
+/* ---------------------------------------------------------
+   Tooltip (bilens informationer)
+--------------------------------------------------------- */
+.tooltip {
+   position: fixed;
+   right: 16px;
+   bottom: 16px;
+   background-color: rgba(0, 0, 0, 0.85);
+   color: #fff;
+   padding: 10px 12px;
+   border-radius: 8px;
+   font-size: 14px;
+   line-height: 1.35;
+   max-width: min(320px, 90vw);
+   opacity: 0; /* usynlig fra start */
+   transform: translateY(8px);
+   transition: opacity 0.25s ease, transform 0.25s ease;
+   pointer-events: none; /* så den ikke fanger musen */
+   z-index: 1000;
+}
+
+/* LØSNING: synlig tooltip (klassen "is-visible" tilføjes af JavaScript) */
+.tooltip.is-visible {
+   opacity: 1;
+   transform: translateY(0);
+}

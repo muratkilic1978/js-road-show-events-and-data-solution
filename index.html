@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Road Show - Events og Data</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- VEJLEDENDE LØSNING - js-road-show-events-and-data-starter -->
+
+    <!-- 1. <main> omslutter hele siden -->
+    <main>
+
+        <!-- 2. Scenen (himlen) -->
+        <section id="scene" class="scene">
+
+            <!-- 3. Solen (bliver til en måne om natten) -->
+            <div id="sun" class="sun"></div>
+
+            <!-- 3. Vejen/baggrunden, der kører (intet id, JavaScript bruger den ikke) -->
+            <div class="bg">
+
+                <!-- 4. De tre biler -->
+                <img src="img/red-car.png" id="redCar" class="car1" alt="Rød bil, der kører mod højre">
+                <img src="img/car.gif" id="policeCar" class="car2" alt="Politibil, der kører mod venstre">
+                <img src="img/light-blue-car.png" id="blueCar" class="car3" alt="Lyseblå bil, der kører mod højre">
+
+            </div>
+
+        </section>
+
+        <!-- 5. Tooltip med bilens informationer (aria-live læser ændringer op) -->
+        <div id="tooltip" class="tooltip" aria-live="polite"></div>
+
+    </main>
+
+    <!-- Script, der linker til js/script.js -->
+    <script src="js/script.js"></script>
+
+</body>
+</html>
