@@ -1,12 +1,12 @@
-# JavaScript – DOM Audio Soundboard
+# JavaScript – Road Show: Events og Data
 
 ## Klasseøvelse
 
-I denne klasseøvelse arbejder vi videre med **JavaScript DOM, events og funktioner**, og vi lærer at **afspille lyd med JavaScript**.
+I denne klasseøvelse arbejder vi videre med **JavaScript DOM, events, arrays, objekter og funktioner**.
 
-Vi skal bygge et **soundboard med dyrelyde**. Når man klikker på en knap, afspilles dyrets lyd. Klikker man på en ny knap, stopper den lyd, der spiller, og den nye lyd starter forfra.
+Vi skal bygge et **animeret road show**, hvor biler kører hen over skærmen. Når man holder musen over en bil, vises bilens informationer, og når man klikker på den, spiller bilens lyd. Klikker man på solen, skifter scenen mellem dag og nat.
 
-På klassen laver vi **lion** og **dog** sammen. Bagefter laver du selv **elephant** og **monkey** som ekstraopgaver.
+Alle bilernes informationer samles i et **array af objekter**, og en **forEach-løkke** kobler data og billeder sammen, så hver bil får sine egne events.
 
 Øvelsen gennemføres sammen på holdet, hvor underviseren gennemgår og skriver koden på storskærm. Du arbejder samtidig med projektet på din egen computer og følger øvelsen trin for trin.
 
@@ -71,7 +71,7 @@ Det skal være **dit eget GitHub-brugernavn**, der står foran repositoryets nav
 Det kan fx se sådan ud:
 
 ```text
-dit-brugernavn/js-dom-audio-soundboard-starter
+dit-brugernavn/js-road-show-events-and-data-starter
 ```
 
 > **Stop her og kontrollér dette, før du går videre.**
@@ -117,18 +117,26 @@ Du skal arbejde direkte i den projektmappe, som GitHub Desktop har klonet.
 Kontrollér, at projektet har denne struktur:
 
 ```text
-js-dom-audio-soundboard-starter/
+js-road-show-events-and-data-starter/
 │
 ├── index.html
 ├── css/
 │   └── style.css
 ├── js/
 │   └── script.js
+├── img/
+│   ├── bg.png
+│   ├── red-car.png
+│   ├── car.gif
+│   ├── light-blue-car.png
+│   ├── bus.webp
+│   └── truck.webp
 ├── sound/
-│   ├── dog.wav
-│   ├── elephant.wav
-│   ├── lion.wav
-│   └── monkey.wav
+│   ├── red-car-horn.wav
+│   ├── police-car-sound.wav
+│   ├── blue-car-sound.wav
+│   ├── bus-sound.wav
+│   └── truck-sound.wav
 └── README.md
 ```
 
@@ -142,55 +150,55 @@ I øvelsen arbejder vi med disse filer:
 - `css/style.css`
 - `js/script.js`
 
-Læs kommentarerne i koden, inden du begynder at skrive. Alle steder, hvor du selv skal skrive kode, er markeret med **Skriv selv**. Steder markeret med **Skriv sammen med underviseren** løser vi i fællesskab på storskærm.
+Læs kommentarerne i koden, inden du begynder at skrive. Alle steder, hvor du selv skal skrive kode, er markeret med **Skriv selv**. Steder markeret med **Undersøg selv** er spørgsmål, du skal finde svaret på ved at eksperimentere med koden.
 
 Arbejd i denne rækkefølge:
 
 ```text
-index.html   → link til script.js
+index.html   → byg HTML-strukturen
 ↓
-style.css    → placér overskrift og knapper med Flexbox
+style.css    → lav himlen, nat-tilstanden, bilernes animationer og tooltip'en
 ↓
-script.js    → hent knapperne, opret lydene og lyt efter klik
+script.js    → lav data, events og funktioner
 ```
 
 ### Det lærer du i øvelsen
 
-- at hente HTML-elementer med **getElementById**
-- at oprette et lydobjekt med **new Audio()** og angive lydfilen med **src**
-- at lytte efter **click**-events med **addEventListener**
-- at afspille lyd med **.play()**
-- at stoppe lyd med **.pause()** og spole tilbage til starten med **.currentTime = 0**
-- at samle gentagen kode i en **funktion**, her `stopAllSounds()`
-- at placere elementer i rækker og kolonner med **CSS Flexbox**
+- at opbygge en side med **semantisk HTML** og koble CSS og JavaScript på via `class` og `id`
+- at bruge **CSS-variabler**, `linear-gradient` og `@keyframes`-animationer
+- at samle data i et **array af objekter**
+- at gennemløbe et array med **forEach**
+- at lytte efter events som `click` og `mouseenter`
+- at tilføje og fjerne CSS-klasser med **classList**
+- at skrive **funktioner med parametre**
+- at indsætte data i HTML med **template literals**
+- at afspille lyd med **Audio**
 
 ### Test undervejs
 
-Åbn konsollen i browseren med **F12**, og hold øje med fejl, mens du arbejder.
+Åbn konsollen i browseren med **F12**, og hold øje med beskeder og fejl, mens du arbejder.
 
 > Står der **Cannot read properties of null** i konsollen, passer et `id` i JavaScript ikke med et `id` i HTML'en. Tjek stavningen.
 
-> Kan du ikke høre lyden, så tjek stien til lydfilen, og at lyden på din computer er slået til.
-
 ---
 
-# Ekstraopgaver – elephant og monkey
+# Ekstraopgaver – bus og truck
 
-Når lion og dog virker, skal du selv tilføje **elephant** og **monkey**.
+Når klasseøvelsen virker, skal du udvide road showet med **en bus og en truck**.
 
-Lydfilerne ligger klar i `sound`-mappen.
+Billederne ligger klar i `img`-mappen, og lydene ligger klar i `sound`-mappen.
 
-Ekstraopgaverne er nummereret **E1–E6** og står som kommentarer i filerne. Løs dem i denne rækkefølge:
+Ekstraopgaverne er nummereret **E1–E10** og står som kommentarer i de tre filer. Løs dem i denne rækkefølge:
 
 | Opgave | Fil | Hvad skal du gøre? |
 | --- | --- | --- |
-| E1–E2 | `index.html` | Tilføj en knap til elephant og en knap til monkey |
-| E3 | `js/script.js` | Hent elephant-knappen, opret lyden og lyt efter klik |
-| E4 | `js/script.js` | Gør det samme for monkey |
-| E5 | `js/script.js` | Tilføj de nye lyde i funktionen `stopAllSounds()` |
-| E6 | `js/script.js` | Test, at alle fire knapper virker |
+| E1–E2 | `index.html` | Tilføj billederne af bussen og truck'en |
+| E3–E6 | `css/style.css` | Giv køretøjerne størrelse, placering og animation |
+| E7–E8 | `js/script.js` | Tilføj bussen og truck'en til `cars`-arrayet |
+| E9 | `js/script.js` | Test, at tooltip og lyd virker |
+| E10 | `js/script.js` | Besvar refleksionsspørgsmålene |
 
-> Glemmer du E5, bliver lyden ved med at spille, når du klikker på et andet dyr. Prøv det, og se hvad der sker.
+> Læg mærke til, hvor lidt JavaScript du skal skrive for at få de nye køretøjer til at virke. Det er pointen med E10.
 
 ---
 
@@ -198,13 +206,13 @@ Ekstraopgaverne er nummereret **E1–E6** og står som kommentarer i filerne. L�
 
 Gem dit arbejde på GitHub undervejs – ikke kun til sidst.
 
-Når du har løst et trin, fx lyden til dog-knappen, skal du:
+Når du har løst et trin, fx HTML-strukturen, skal du:
 
 1. Åbne **GitHub Desktop**.
 2. Skrive en kort og beskrivende besked i feltet **Summary**, fx:
 
 ```text
-Tilføj lyd til dog-knappen
+Tilføj HTML-struktur til scene og biler
 ```
 
 3. Klikke på **Commit to main**.
